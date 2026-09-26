@@ -61,7 +61,7 @@ h1 {
 }
 
 /* APP CONTAINER — FULLSCREEN 100VW / 100VH FIT */
-.nothing-app {
+.dashboard-container {
   width: 100vw;
   height: 100vh;
   max-width: 100vw;
@@ -202,7 +202,8 @@ h1 {
 }
 
 .clock-hero {
-  margin: auto 0;
+  margin-top: 25px;
+  margin-bottom: auto;
 }
 
 .hero-clock-text {
@@ -372,8 +373,9 @@ h1 {
 }
 
 .timer-dial-mini {
-  width: clamp(100px, 10.4vw, 150px);
-  height: clamp(100px, 10.4vw, 150px);
+  width: clamp(90px, 9vw, 120px);
+  height: clamp(90px, 9vw, 120px);
+  flex-shrink: 0;
   border: 4px dotted rgba(255, 255, 255, 0.35);
   border-radius: 50%;
   display: flex;
@@ -398,7 +400,7 @@ h1 {
 
 .hero-timer-digits {
   font-family: var(--font-nothing) !important;
-  font-size: clamp(22px, 2.2vw, 32px);
+  font-size: clamp(18px, 1.8vw, 24px);
   letter-spacing: 1px;
   color: #ffffff;
 }
@@ -428,6 +430,14 @@ h1 {
   background: linear-gradient(135deg, #181818, #0e0e0e);
 }
 
+.course-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  padding: 5px 0;
+}
+
 .module-code {
   font-family: var(--font-nothing) !important;
   font-size: clamp(12px, 0.97vw, 14px);
@@ -438,12 +448,12 @@ h1 {
 }
 
 .quote-headline {
-  font-size: clamp(13px, 1.05vw, 15px);
+  font-size: clamp(12px, 0.95vw, 14px);
   font-weight: 200;
-  line-height: 1.45;
+  line-height: 1.6;
   font-style: italic;
   color: #ffffff;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 
 .author-tag {
@@ -569,7 +579,7 @@ h1 {
     overflow-y: auto;
     height: auto;
   }
-  .nothing-app {
+  .dashboard-container {
     height: auto;
     min-height: 100vh;
   }
