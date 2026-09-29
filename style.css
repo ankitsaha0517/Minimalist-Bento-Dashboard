@@ -583,15 +583,17 @@ h1 {
   z-index: 99999; 
   display: none;
 }
+.full-todo{
+  display: block;
+}
 
 /* MODAL UI STYLES */
 .modal-card {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   width: 90%;
-  max-width: 600px;
+  transform: translate(-50%, -50%);
   background: var(--card-bg);
   border: var(--card-border);
   border-radius: var(--radius-card);
@@ -629,6 +631,7 @@ h1 {
   font-size: 20px;
   cursor: pointer;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .close-btn:hover {
@@ -673,7 +676,7 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-height: 400px;
+  height: 100%;
   overflow-y: auto;
   padding-right: 5px;
 }
@@ -726,7 +729,6 @@ h1 {
   font-size: 16px;
   font-weight: 400;
   color: #ffffff;
-  flex: 1;
   transition: color 0.2s ease;
 }
 
@@ -744,6 +746,230 @@ h1 {
 
 .delete-icon:hover {
   color: var(--red-accent);
+}
+
+/* TWO-COLUMN TODO MODAL SPECIFIC STYLES */
+.todo-modal-wide {
+  width: 70%;
+}
+
+.todo-two-col {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.todo-left-panel, .todo-right-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-inset);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-card);
+  padding: 24px;
+}
+
+.panel-title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+}
+
+/* FORM STYLES */
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-disabled);
+}
+
+/* FORM ERROR STATES */
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.error-msg {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--red-accent);
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.has-error label {
+  color: var(--red-accent);
+}
+
+.has-error .task-input-lg,
+.has-error .task-textarea,
+.has-error .category-selector {
+  border-color: var(--red-accent);
+  background: rgba(255, 0, 0, 0.05);
+}
+
+.has-error .task-input-lg:focus,
+.has-error .task-textarea:focus {
+  border-color: #ff4444;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+}
+
+.btn-error {
+  background: rgba(255, 0, 0, 0.1) !important;
+  color: var(--red-accent) !important;
+  border: 1px dashed var(--red-accent) !important;
+  box-shadow: none !important;
+}
+
+.btn-error:hover {
+  background: var(--red-accent) !important;
+  color: #ffffff !important;
+  border-style: solid !important;
+}
+
+.task-input-lg {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-btn);
+  padding: 14px 16px;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.task-textarea {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-btn);
+  padding: 14px 16px;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  outline: none;
+  min-height: 120px;
+  resize: none;
+  transition: border-color 0.2s ease;
+}
+
+/* Custom Scrollbar for textarea */
+.task-textarea::-webkit-scrollbar {
+  width: 6px;
+}
+.task-textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+.task-textarea::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.task-input-lg:focus, .task-textarea:focus {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.add-btn-lg {
+  margin-top: 10px;
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Make sure the right panel task list takes up available space nicely */
+.todo-right-panel .task-list {
+  flex: 1;
+  max-height: 350px;
+}
+
+/* CATEGORY SELECTOR & FILTER */
+.panel-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.panel-header-row .panel-title {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.category-selector, .category-filter {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cat-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cat-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cat-pill.active {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  font-weight: 600;
+}
+
+/* CATEGORY BADGE & DESCRIPTION ON TASKS */
+.task-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.task-desc {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.task-desc.completed {
+  color: var(--text-disabled);
+  text-decoration: line-through;
+}
+
+.task-cat-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--red-accent);
+  letter-spacing: 1px;
 }
 
 /* --- RESPONSIVE DESIGN BREAKPOINTS --- */
