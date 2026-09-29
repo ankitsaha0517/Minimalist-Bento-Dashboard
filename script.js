@@ -37,6 +37,26 @@ function renderTask() {
   taskList.innerHTML = taskSum;
 }
 
+function errorHandle(errorMsg) {
+  let errorText = document.querySelector(".title-error-msg");
+  let errorInput = document.querySelector(".task-title");
+  let submitBtn = document.querySelector(".todoTask-submit-btn");
+  errorText.style.display = "block";
+  errorText.textContent = errorMsg;
+  errorInput.classList.add("has-error");
+  submitBtn.classList.add("btn-error");
+  submitBtn.textContent = "ERROR -- CAN'T SUBMIT";
+}
+function hideError() {
+  let errorText = document.querySelector(".title-error-msg");
+  let errorInput = document.querySelector(".task-title");
+  let submitBtn = document.querySelector(".todoTask-submit-btn");
+  errorText.style.display = "none";
+  errorInput.classList.remove("has-error");
+  submitBtn.classList.remove("btn-error");
+  submitBtn.textContent = "ADD TASK";
+}
+
 let form = document.querySelector(".full-todo form");
 let taskTitle = document.querySelector(".task-form input");
 let taskDesc = document.querySelector(".task-form textarea");
@@ -98,19 +118,43 @@ let currentTasks = [
 ];
 renderTask();
 
+//when user starts typing something, remove the error
+taskTitle.addEventListener("input", () => {
+  const currentTitle = taskTitle.value.trim();  
+  if (currentTitle.length > 0 && currentTitle.length < 5) {
+    errorHandle("TITLE CAN'T BE LESS THAN 5 CHARACTERS");
+  } else if (currentTitle.length > 25) {
+    errorHandle("TITLE CAN'T BE MORE THAN 25 CHARACTERS");
+  } else {
+    hideError();
+  }
+});
+
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  //   console.log(taskTitle.value, taskDesc.value, categorySelectorID);
+  const title = taskTitle.value.trim();
+  const description = taskDesc.value.trim();
 
+  if (title.length <= 0) {
+    errorHandle("TITLE CAN'T BE EMPTY");
+    return;
+  }
+  if (title.length < 5) {
+    errorHandle("TITLE CAN'T BE LESS THAN 5 CHARACTERS");
+    return;
+  }
+  if (title.length > 25) {
+    errorHandle("TITLE CAN'T BE MORE THAN 25 CHARACTERS");
+    return;
+  }
   currentTasks.unshift({
-    title: taskTitle.value,
-    desc: taskDesc.value,
+    title: title,
+    desc: description,
     category_id: categorySelectorID,
     completed: false,
   });
-  taskTitle.value="";
-  taskDesc.value="";
-  console.log(currentTasks);
+  taskTitle.value = "";
+  taskDesc.value = "";
   renderTask();
 });
-

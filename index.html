@@ -197,10 +197,10 @@
               <h2 class="panel-title">CREATE TASK</h2>
               <form class="task-form">
                 <!-- Example of an error state on an input (added has-error class) -->
-                <div class="form-group">
+                <div class="form-group task-title">
                   <div class="label-row">
                     <label>TASK TITLE</label>
-                    <span class="error-msg" style="display: none">TITLE IS REQUIRED</span>
+                    <span class="error-msg title-error-msg" style="display: none"></span>
                   </div>
                   <input
                     type="text"
@@ -238,7 +238,7 @@
                 </div>
 
                 <!-- Example error state on the button -->
-                <button class="white-pill-btn add-btn-lg" >
+                <button class="white-pill-btn todoTask-submit-btn" >
                   ADD TASK
                 </button>
               </form>
