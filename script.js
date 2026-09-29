@@ -15,4 +15,10 @@ function openCloseWidget() {
     });
   });
 }
-openCloseWidget()
+openCloseWidget();
+
+let form = document.querySelector(".full-todo form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  console.log(`hello`);
+});
