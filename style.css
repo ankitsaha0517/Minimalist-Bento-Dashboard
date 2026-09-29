@@ -613,7 +613,7 @@ h1 {
 }
 
 .modal-header h1 {
-  font-size: clamp(24px, 3vw, 32px);
+  font-size: 3vw;
   color: #ffffff;
   margin: 0;
 }
@@ -672,7 +672,6 @@ h1 {
 }
 
 .task-list {
-  list-style: none;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -767,6 +766,12 @@ h1 {
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-card);
   padding: 24px;
+}
+
+/* Force right panel to match left panel height natively in grid */
+.todo-right-panel {
+  height: 1px;
+  min-height: 100%;
 }
 
 .panel-title {
@@ -895,7 +900,9 @@ h1 {
 
 /* Make sure the right panel task list takes up available space nicely */
 .todo-right-panel .task-list {
-  height: 50vh;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 /* CATEGORY SELECTOR & FILTER */
