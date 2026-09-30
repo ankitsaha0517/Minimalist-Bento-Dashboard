@@ -16,14 +16,15 @@ function openCloseWidget() {
   });
 }
 openCloseWidget();
-//render task -> update the list of task every time
+
 function renderTask() {
+  localStorage.setItem("currentTasks", JSON.stringify(currentTasks));
   var taskList = document.querySelector(".task-list");
   var taskSum = "";
-  currentTasks.forEach((task) => {
+  currentTasks.forEach((task, idx) => {
     taskSum += `
      <div class="task-item">
-  <div class="task-check ${task.completed ? "checked" : ""}"></div>
+  <div class="task-check ${task.completed ? "checked" : ""}" id="${idx}"></div>
         <div class="task-details">
             <span class="task-text ${task.completed ? "completed" : ""}">${task.title}</span>
             <p class="task-desc ${task.completed ? "completed" : ""}">
@@ -31,7 +32,7 @@ function renderTask() {
             </p>
             <span class="task-cat-badge">${categoryArr[task.category_id]}</span>
         </div>
-        <i class="ri-delete-bin-line delete-icon"></i>
+        <i class="ri-delete-bin-line delete-icon" id=${idx}></i>
     </div>`;
   });
   taskList.innerHTML = taskSum;
@@ -120,21 +121,38 @@ function setupTaskForm() {
       category_id: categorySelectorID,
       completed: false,
     });
-    // Save to local storage
-    localStorage.setItem("currentTasks", JSON.stringify(currentTasks));
-
+    renderTask();
     taskTitle.value = "";
     taskDesc.value = "";
     categorySelector.forEach((elem) => {
       elem.classList.remove("active");
     });
     categorySelector[0].classList.add("active");
-    renderTask();
   });
 }
 
+function deleteTask() {
+  const taskListContainer = document.querySelector(".task-list");
+  taskListContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("delete-icon")) {
+      currentTasks.splice(e.target.id, 1);
+      renderTask();
+    }
+  });
+}
 
+function completeTask() {
+  const taskListContainer = document.querySelector(".task-list");
+  taskListContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("task-check")) {
+      currentTasks[e.target.id].completed = true;
+      renderTask();
+    }
+  });
+}
 
 renderTask();
 setupTaskForm();
 
+deleteTask();
+completeTask();
