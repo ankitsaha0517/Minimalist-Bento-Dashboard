@@ -48,6 +48,7 @@ function renderTask() {
   }
 
   taskList.innerHTML = taskSum;
+  updateStats();
 }
 
 function errorHandle(errorMsg) {
@@ -184,3 +185,42 @@ setupTaskForm();
 deleteTask();
 completeTask();
 filterTasks();
+
+
+
+
+
+function updateStats() {
+  const incompleteTasks = currentTasks.filter((task) => !task.completed);
+
+  let previewList = document.querySelector(".preview-list");
+  let previewHTML = "";
+  
+  incompleteTasks.forEach((task)=>{
+    previewHTML += `
+    <li class="preview-item">
+      <div class="dot-check"></div>
+      <span>${task.title}</span>
+    </li>`;
+  });
+  
+  previewList.innerHTML = previewHTML;
+  
+  const countDisplay = document.getElementById("todo-count-display");
+  if (countDisplay) {
+    countDisplay.textContent = incompleteTasks.length.toString().padStart(2, "0");
+  }
+  
+  // Calculate and update the progress bar
+  const progressBar = document.getElementById("todo-progress-bar");
+  if (progressBar) {
+    let percentage = 0;
+    // Prevent dividing by zero if there are no tasks
+    if (currentTasks.length > 0) {
+      const completedTasksCount = currentTasks.length - incompleteTasks.length;
+      percentage = (completedTasksCount / currentTasks.length) * 100;
+    }
+    progressBar.style.width = `${percentage}%`;
+  }
+}
+
