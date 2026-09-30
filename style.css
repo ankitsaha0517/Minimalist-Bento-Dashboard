@@ -978,6 +978,15 @@ h1 {
   letter-spacing: 1px;
 }
 
+.empty-tasks-msg {
+  color: var(--text-secondary);
+  text-align: center;
+  margin:  auto;
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-family: var(--font-nothing);
+}
+
 /* --- RESPONSIVE DESIGN BREAKPOINTS --- */
 
 /* TABLET LAYOUT */

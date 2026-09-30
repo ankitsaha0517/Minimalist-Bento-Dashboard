@@ -21,20 +21,32 @@ function renderTask() {
   localStorage.setItem("currentTasks", JSON.stringify(currentTasks));
   var taskList = document.querySelector(".task-list");
   var taskSum = "";
+
+  const activeFilterID = document.querySelector(".category-filter .active").id;
+
   currentTasks.forEach((task, idx) => {
-    taskSum += `
-     <div class="task-item">
-  <div class="task-check ${task.completed ? "checked" : ""}" id="${idx}"></div>
-        <div class="task-details">
-            <span class="task-text ${task.completed ? "completed" : ""}">${task.title}</span>
-            <p class="task-desc ${task.completed ? "completed" : ""}">
-                ${task.desc}
-            </p>
-            <span class="task-cat-badge">${categoryArr[task.category_id]}</span>
-        </div>
-        <i class="ri-delete-bin-line delete-icon" id=${idx}></i>
-    </div>`;
+    // Only render if filter is ALL (-1) or matches task category
+    if (activeFilterID == "-1" || task.category_id == activeFilterID) {
+      taskSum += `
+       <div class="task-item">
+        <div class="task-check ${task.completed ? "checked" : ""}" id="${idx}"></div>
+          <div class="task-details">
+              <span class="task-text ${task.completed ? "completed" : ""}">${task.title}</span>
+              <p class="task-desc ${task.completed ? "completed" : ""}">
+                  ${task.desc}
+              </p>
+              <span class="task-cat-badge">${categoryArr[task.category_id]}</span>
+          </div>
+          <i class="ri-delete-bin-line delete-icon" id=${idx}></i>
+      </div>`;
+    }
   });
+
+  // Check if the list is empty after filtering
+  if (taskSum === "") {
+    taskSum = `<h3 class="empty-tasks-msg">THERE ARE NO TASKS HERE</h3>`;
+  }
+
   taskList.innerHTML = taskSum;
 }
 
@@ -150,9 +162,25 @@ function completeTask() {
     }
   });
 }
+function filterTasks() {
+  let categoryFilter = document.querySelectorAll(".category-filter .cat-pill");
+  let categoryFilterID = document.querySelector(".category-filter .active").id;
+
+  categoryFilter.forEach((elem) => {
+    elem.addEventListener("click", () => {
+      categoryFilter.forEach((elem) => {
+        elem.classList.remove("active");
+      });
+      elem.classList.add("active");
+      categoryFilterID = elem.id;
+      renderTask();
+    });
+  });
+}
 
 renderTask();
 setupTaskForm();
 
 deleteTask();
 completeTask();
+filterTasks();
