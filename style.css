@@ -725,7 +725,7 @@ h1 {
 }
 
 .task-text {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   color: #ffffff;
   transition: color 0.2s ease;
@@ -954,7 +954,7 @@ h1 {
 .task-details {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
   flex: 1;
 }
 
@@ -973,7 +973,7 @@ h1 {
 
 .task-cat-badge {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 11px;
   color: var(--red-accent);
   letter-spacing: 1px;
 }
