@@ -24,29 +24,7 @@
   <div class="dashboard-container">
     <!-- PURE STANDALONE LANDING PAGE DASHBOARD BENTO GRID -->
     <main class="dashboard-grid" id="dashboard-landing">
-      <!-- WIDGET 1: CLOCK & SYSTEM INFO (2 COLS X 2 ROWS - HERO TILE) -->
-      <section class="widget-card widget-clock">
-        <div class="card-header">
-          <span class="tech-label">SYS // TIME & ENVIRONMENT</span>
-          <span class="dot-red"></span>
-        </div>
-        <div class="clock-hero">
-          <h1 class="ndot-number hero-clock-text" id="main-large-clock">
-            08:46<span class="ampm">PM</span>
-          </h1>
-          <p class="date-sub" id="main-large-date">Friday, September 25</p>
-        </div>
-        <div class="env-stats">
-          <div class="env-item">
-            <span class="ndot-number env-val">24°C</span>
-            <span class="env-lbl">TOKYO // CLEAR</span>
-          </div>
-          <div class="env-item text-right">
-            <span class="ndot-number env-val"><span class="dot-matrix-mini">••••••••••</span></span>
-            <span class="env-lbl">SLEEP // 8H 32M</span>
-          </div>
-        </div>
-      </section>
+     
 
       <!-- WIDGET 2: TO-DO PLANNER (2 COLS X 1 ROW - WIDE HORIZONTAL) -->
       <section class="widget-card widget-todo" id="0">
@@ -57,7 +35,7 @@
         <div class="todo-preview-content">
           <div class="metric-row">
             <div class="ndot-number metric-big" id="todo-count-display">
-              04
+              
             </div>
             <div class="metric-meta">
               <span class="meta-title">PENDING TASKS</span>
@@ -66,16 +44,8 @@
               </div>
             </div>
           </div>
-          <ul class="preview-list" id="todo-preview-list">
-            <!-- <li class="preview-item">
-              <div class="dot-check"></div>
-              <span>Finalize Nothing OS design system</span>
-            </li>
-            <li class="preview-item">
-              <div class="dot-check"></div>
-              <span>Integrate GSAP animations</span>
-            </li> -->
-          </ul>
+          <div class="preview-list" id="todo-preview-list">
+          </div>
         </div>
       </section>
 
@@ -98,6 +68,29 @@
         </div>
       </section>
 
+      <!-- WIDGET 4: DAILY PLANNER (2 COLS X 1 ROW - WIDE HORIZONTAL) -->
+      <section class="widget-card widget-schedule" id="3">
+        <div class="card-header">
+          <span class="tech-label">04 // DAILY PLANNER TIMELINE</span>
+          <span class="action-tag-pill red-pill">TIMELINE</span>
+        </div>
+        <div class="schedule-preview-wide">
+          <div class="slot-card in-progress">
+            <span class="slot-time">NOW // 10:00 AM</span>
+            <h3 class="slot-title" id="current-slot-title">
+              Morning Workout & Hydration
+            </h3>
+            <span class="slot-badge-red">IN PROGRESS</span>
+          </div>
+          <div class="slot-card">
+            <span class="slot-time">NEXT // 01:30 PM</span>
+            <p class="slot-title-sm" id="next-slot-title">
+              Morning Review & Coffee
+            </p>
+          </div>
+        </div>
+      </section>
+
       <!-- WIDGET 3: MOTIVATIONAL COURSE (1 COL X 1 ROW - COMPACT SQUARE) -->
       <section class="widget-card widget-course" id="2">
         <div class="card-header">
@@ -114,25 +107,26 @@
         </div>
       </section>
 
-      <!-- WIDGET 4: DAILY PLANNER (2 COLS X 1 ROW - WIDE HORIZONTAL) -->
-      <section class="widget-card widget-schedule" id="3">
+       <!-- WIDGET 1: CLOCK & SYSTEM INFO (2 COLS X 2 ROWS - HERO TILE) -->
+      <section class="widget-card widget-clock">
         <div class="card-header">
-          <span class="tech-label">04 // DAILY PLANNER TIMELINE</span>
-          <span class="action-tag-pill red-pill">TIMELINE</span>
+          <span class="tech-label">SYS // TIME & ENVIRONMENT</span>
+          <span class="dot-red"></span>
         </div>
-        <div class="schedule-preview-wide">
-          <div class="now-slot-card">
-            <span class="slot-time">NOW // 10:00 AM</span>
-            <h3 class="slot-title" id="current-slot-title">
-              Morning Workout & Hydration
-            </h3>
-            <span class="slot-badge-red">IN PROGRESS</span>
+        <div class="clock-hero">
+          <h1 class="ndot-number hero-clock-text" id="main-large-clock">
+            08:46<span class="ampm">PM</span>
+          </h1>
+          <p class="date-sub" id="main-large-date">Friday, September 25</p>
+        </div>
+        <div class="env-stats">
+          <div class="env-item">
+            <span class="ndot-number env-val">24°C</span>
+            <span class="env-lbl">TOKYO // CLEAR</span>
           </div>
-          <div class="upcoming-slot-card">
-            <span class="slot-time">NEXT // 01:30 PM</span>
-            <p class="slot-title-sm" id="next-slot-title">
-              Morning Review & Coffee
-            </p>
+          <div class="env-item text-right">
+            <span class="ndot-number env-val"><span class="dot-matrix-mini">••••••••••</span></span>
+            <span class="env-lbl">SLEEP // 8H 32M</span>
           </div>
         </div>
       </section>
@@ -256,13 +250,132 @@
         </div>
       </div>
     </section>
-    <section class="fullscreen-models full-daily-planner">
-      <div class="modal-card">
+    <section class="fullscreen-models full-daily-planner" style="display: block;">
+      <div class="modal-card todo-modal-wide planner-modal-body">
         <div class="modal-header">
           <h1 class="ndot-number">04 // DAILY PLANNER TIMELINE</h1>
           <button class="close-btn">
             <i class="ri-close-line"></i>
           </button>
+        </div>
+        
+        <div class="planner-grid-wrapper">
+          <div class="planner-slot has-task">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">06:00 - 07:00</span>
+              <span class="dot-red-small"></span>
+            </div>
+            <input type="text" class="slot-title" value="Wake up & Hydrate" placeholder="..." />
+          </div>
+
+          <div class="planner-slot has-task">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">07:00 - 08:00</span>
+              <span class="dot-red-small"></span>
+            </div>
+            <input type="text" class="slot-title" value="Bathing & Meditation" placeholder="..." />
+          </div>
+
+          <div class="planner-slot has-task">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">08:00 - 09:00</span>
+              <span class="dot-red-small"></span>
+            </div>
+            <input type="text" class="slot-title" value="Breakfast & Review Goals" placeholder="..." />
+          </div>
+
+          <div class="planner-slot  has-task">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">09:00 - 10:00</span>
+              <span class="dot-red-small"></span>
+            </div>
+            <input type="text" class="slot-title" value="Deep Work Session" placeholder="..." />
+          </div>
+
+          <div class="planner-slot current-slot">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">10:00 - 11:00</span>
+            </div>
+            <input type="text" class="slot-title empty" value="" placeholder="..." />
+          </div>
+
+          <div class="planner-slot">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">11:00 - 12:00</span>
+            </div>
+            <input type="text" class="slot-title empty" value="" placeholder="..." />
+          </div>
+
+          <div class="planner-slot">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">12:00 - 13:00</span>
+            </div>
+            <input type="text" class="slot-title empty" value="" placeholder="..." />
+          </div>
+
+          <div class="planner-slot">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">13:00 - 14:00</span>
+            </div>
+            <input type="text" class="slot-title empty" value="" placeholder="..." />
+          </div>
+
+          <div class="planner-slot has-task">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">14:00 - 15:00</span>
+              <span class="dot-red-small"></span>
+            </div>
+            <input type="text" class="slot-title" value="Lunch Break" placeholder="..." />
+          </div>
+
+          <div class="planner-slot">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">15:00 - 16:00</span>
+            </div>
+            <input type="text" class="slot-title empty" value="" placeholder="..." />
+          </div>
+
+          <div class="planner-slot">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">16:00 - 17:00</span>
+            </div>
+            <input type="text" class="slot-title empty" value="" placeholder="..." />
+          </div>
+
+          <div class="planner-slot">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">17:00 - 18:00</span>
+            </div>
+            <input type="text" class="slot-title empty" value="" placeholder="..." />
+          </div>
+
+          <div class="planner-slot">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">18:00 - 19:00</span>
+            </div>
+            <input type="text" class="slot-title empty" value="" placeholder="..." />
+          </div>
+
+          <div class="planner-slot">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">19:00 - 20:00</span>
+            </div>
+            <input type="text" class="slot-title empty" value="" placeholder="..." />
+          </div>
+
+          <div class="planner-slot">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">20:00 - 21:00</span>
+            </div>
+            <input type="text" class="slot-title empty" value="" placeholder="..." />
+          </div>
+
+          <div class="planner-slot">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">21:00 - 22:00</span>
+            </div>
+            <input type="text" class="slot-title empty" value="" placeholder="..." />
+          </div>
         </div>
       </div>
     </section>
