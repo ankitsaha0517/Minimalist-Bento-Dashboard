@@ -1,274 +1,294 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Productivity Dashboard</title>
+    <meta name="description" content="A productivity dashboard" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Productivity Dashboard</title>
-  <meta name="description" content="A productivity dashboard" />
+    <!-- Google Fonts: Doto (Nothing Dot Matrix Numbering), Space Grotesk, Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Doto:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Google Fonts: Doto (Nothing Dot Matrix Numbering), Space Grotesk, Space Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Doto:wght@600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
-    rel="stylesheet" />
+    <!-- Remix Icon CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
 
-  <!-- Remix Icon CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-  <link rel="stylesheet" href="style.css" />
-</head>
-
-<body>
-  <div class="dashboard-container">
-    <!-- PURE STANDALONE LANDING PAGE DASHBOARD BENTO GRID -->
-    <main class="dashboard-grid" id="dashboard-landing">
-     
-
-      <!-- WIDGET 2: TO-DO PLANNER (2 COLS X 1 ROW - WIDE HORIZONTAL) -->
-      <section class="widget-card widget-todo" id="0">
-        <div class="card-header">
-          <span class="tech-label">01 // TO-DO MATRIX</span>
-          <span class="action-tag-pill">MATRIX</span>
-        </div>
-        <div class="todo-preview-content">
-          <div class="metric-row">
-            <div class="ndot-number metric-big" id="todo-count-display">
-              
-            </div>
-            <div class="metric-meta">
-              <span class="meta-title">PENDING TASKS</span>
-              <div class="dot-bar-track">
-                <div class="dot-bar-fill" id="todo-progress-bar" style="width: 65%"></div>
+  <body>
+    <div class="dashboard-container">
+      <!-- PURE STANDALONE LANDING PAGE DASHBOARD BENTO GRID -->
+      <main class="dashboard-grid" id="dashboard-landing">
+        <!-- WIDGET 2: TO-DO PLANNER (2 COLS X 1 ROW - WIDE HORIZONTAL) -->
+        <section class="widget-card widget-todo" id="0">
+          <div class="card-header">
+            <span class="tech-label">01 // TO-DO MATRIX</span>
+            <span class="action-tag-pill">MATRIX</span>
+          </div>
+          <div class="todo-preview-content">
+            <div class="metric-row">
+              <div class="ndot-number metric-big" id="todo-count-display"></div>
+              <div class="metric-meta">
+                <span class="meta-title">PENDING TASKS</span>
+                <div class="dot-bar-track">
+                  <div
+                    class="dot-bar-fill"
+                    id="todo-progress-bar"
+                    style="width: 65%"
+                  ></div>
+                </div>
               </div>
             </div>
+            <div class="preview-list" id="todo-preview-list"></div>
           </div>
-          <div class="preview-list" id="todo-preview-list">
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- WIDGET 2: PROMPT TIMER (1 COL X 1 ROW - COMPACT SQUARE) -->
-      <section class="widget-card widget-timer" id="1">
-        <div class="card-header">
-          <span class="tech-label">02 // TIMER</span>
-          <span class="action-tag-pill">ACTIVE</span>
-        </div>
-        <div class="timer-preview-layout">
-          <div class="timer-dial-mini">
-            <span class="ndot-number hero-timer-digits" id="widget-timer-digits">25:00</span>
+        <!-- WIDGET 2: PROMPT TIMER (1 COL X 1 ROW - COMPACT SQUARE) -->
+        <section class="widget-card widget-timer" id="1">
+          <div class="card-header">
+            <span class="tech-label">02 // TIMER</span>
+            <span class="action-tag-pill">ACTIVE</span>
           </div>
-          <div class="timer-info">
-            <span class="prompt-badge" id="widget-prompt-tag">"DEEP WORK"</span>
-            <button class="white-pill-btn" id="widget-timer-start" title="Start/Pause Timer">
-              ▶ PLAY
+          <div class="timer-preview-layout">
+            <div class="timer-dial-mini">
+              <span
+                class="ndot-number hero-timer-digits"
+                id="widget-timer-digits"
+                >25:00</span
+              >
+            </div>
+            <div class="timer-info">
+              <span class="prompt-badge" id="widget-prompt-tag"
+                >"DEEP WORK"</span
+              >
+              <button
+                class="white-pill-btn"
+                id="widget-timer-start"
+                title="Start/Pause Timer"
+              >
+                ▶ PLAY
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- WIDGET 4: DAILY PLANNER (2 COLS X 1 ROW - WIDE HORIZONTAL) -->
+        <section class="widget-card widget-schedule" id="3">
+          <div class="card-header">
+            <span class="tech-label">04 // DAILY PLANNER TIMELINE</span>
+            <span class="action-tag-pill red-pill">TIMELINE</span>
+          </div>
+          <div class="schedule-preview-wide">
+            <div class="slot-card in-progress">
+              <span class="slot-time">NOW // 10:00 AM</span>
+              <h3 class="slot-title" id="current-slot-title">
+                Morning Workout & Hydration
+              </h3>
+              <span class="slot-badge-red">IN PROGRESS</span>
+            </div>
+            <div class="slot-card">
+              <span class="slot-time">NEXT // 01:30 PM</span>
+              <p class="slot-title-sm" id="next-slot-title">
+                Morning Review & Coffee
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- WIDGET 3: MOTIVATIONAL COURSE (1 COL X 1 ROW - COMPACT SQUARE) -->
+        <section class="widget-card widget-course" id="2">
+          <div class="card-header">
+            <span class="tech-label">03 // MINDSET</span>
+            <span class="action-tag-pill">MINDSET</span>
+          </div>
+          <div class="course-preview">
+            <span class="ndot-number module-code">MODULE 03 / 08</span>
+            <h3 class="quote-headline" id="widget-quote-display">
+              "Perfection is achieved, not when there is nothing more to add,
+              but when there is nothing left to take away."
+            </h3>
+            <div class="author-tag">— JOHN MAEDA // DESIGN LAWS</div>
+          </div>
+        </section>
+
+        <!-- WIDGET 1: CLOCK & SYSTEM INFO (2 COLS X 2 ROWS - HERO TILE) -->
+        <section class="widget-card widget-clock">
+          <div class="card-header">
+            <span class="tech-label">SYS // TIME & ENVIRONMENT</span>
+            <span class="dot-red"></span>
+          </div>
+          <div class="clock-hero">
+            <h1 class="ndot-number hero-clock-text" id="main-large-clock">
+              08:46<span class="ampm">PM</span>
+            </h1>
+            <p class="date-sub" id="main-large-date">Friday, September 25</p>
+          </div>
+          <div class="env-stats">
+            <div class="env-item">
+              <span class="ndot-number env-val">24°C</span>
+              <span class="env-lbl">TOKYO // CLEAR</span>
+            </div>
+            <div class="env-item text-right">
+              <span class="ndot-number env-val"
+                ><span class="dot-matrix-mini">••••••••••</span></span
+              >
+              <span class="env-lbl">SLEEP // 8H 32M</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- WIDGET 5: DAILY GOALS (2 COLS X 1 ROW - WIDE HORIZONTAL) -->
+        <section class="widget-card widget-goals" id="4">
+          <div class="card-header">
+            <span class="tech-label">05 // DAILY GOALS</span>
+            <span class="action-tag-pill">TRACK</span>
+          </div>
+          <div class="goals-grid-preview" id="widget-goals-list">
+            <div class="goal-card-sm">
+              <span class="goal-name-sm">Drink Water</span>
+              <span class="goal-count-sm ndot-number">3/8</span>
+            </div>
+            <div class="goal-card-sm">
+              <span class="goal-name-sm">Read Book</span>
+              <span class="goal-count-sm ndot-number">1/1</span>
+            </div>
+            <div class="goal-card-sm">
+              <span class="goal-name-sm">Exercise</span>
+              <span class="goal-count-sm ndot-number">0/1</span>
+            </div>
+            <div class="goal-card-sm">
+              <span class="goal-name-sm">Meditation</span>
+              <span class="goal-count-sm ndot-number">1/2</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- FULLSCREEN MODALS -->
+      <section class="fullscreen-models full-todo">
+        <div class="modal-card todo-modal-wide">
+          <div class="modal-header">
+            <h1 class="ndot-number">01 // TO-DO MATRIX</h1>
+            <button class="close-btn">
+              <i class="ri-close-line"></i>
             </button>
           </div>
-        </div>
-      </section>
-
-      <!-- WIDGET 4: DAILY PLANNER (2 COLS X 1 ROW - WIDE HORIZONTAL) -->
-      <section class="widget-card widget-schedule" id="3">
-        <div class="card-header">
-          <span class="tech-label">04 // DAILY PLANNER TIMELINE</span>
-          <span class="action-tag-pill red-pill">TIMELINE</span>
-        </div>
-        <div class="schedule-preview-wide">
-          <div class="slot-card in-progress">
-            <span class="slot-time">NOW // 10:00 AM</span>
-            <h3 class="slot-title" id="current-slot-title">
-              Morning Workout & Hydration
-            </h3>
-            <span class="slot-badge-red">IN PROGRESS</span>
-          </div>
-          <div class="slot-card">
-            <span class="slot-time">NEXT // 01:30 PM</span>
-            <p class="slot-title-sm" id="next-slot-title">
-              Morning Review & Coffee
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- WIDGET 3: MOTIVATIONAL COURSE (1 COL X 1 ROW - COMPACT SQUARE) -->
-      <section class="widget-card widget-course" id="2">
-        <div class="card-header">
-          <span class="tech-label">03 // MINDSET</span>
-          <span class="action-tag-pill">MINDSET</span>
-        </div>
-        <div class="course-preview">
-          <span class="ndot-number module-code">MODULE 03 / 08</span>
-          <h3 class="quote-headline" id="widget-quote-display">
-            "Perfection is achieved, not when there is nothing more to add,
-            but when there is nothing left to take away."
-          </h3>
-          <div class="author-tag">— JOHN MAEDA // DESIGN LAWS</div>
-        </div>
-      </section>
-
-       <!-- WIDGET 1: CLOCK & SYSTEM INFO (2 COLS X 2 ROWS - HERO TILE) -->
-      <section class="widget-card widget-clock">
-        <div class="card-header">
-          <span class="tech-label">SYS // TIME & ENVIRONMENT</span>
-          <span class="dot-red"></span>
-        </div>
-        <div class="clock-hero">
-          <h1 class="ndot-number hero-clock-text" id="main-large-clock">
-            08:46<span class="ampm">PM</span>
-          </h1>
-          <p class="date-sub" id="main-large-date">Friday, September 25</p>
-        </div>
-        <div class="env-stats">
-          <div class="env-item">
-            <span class="ndot-number env-val">24°C</span>
-            <span class="env-lbl">TOKYO // CLEAR</span>
-          </div>
-          <div class="env-item text-right">
-            <span class="ndot-number env-val"><span class="dot-matrix-mini">••••••••••</span></span>
-            <span class="env-lbl">SLEEP // 8H 32M</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- WIDGET 5: DAILY GOALS (2 COLS X 1 ROW - WIDE HORIZONTAL) -->
-      <section class="widget-card widget-goals" id="4">
-        <div class="card-header">
-          <span class="tech-label">05 // DAILY GOALS</span>
-          <span class="action-tag-pill">TRACK</span>
-        </div>
-        <div class="goals-grid-preview" id="widget-goals-list">
-          <div class="goal-card-sm">
-            <span class="goal-name-sm">Drink Water</span>
-            <span class="goal-count-sm ndot-number">3/8</span>
-          </div>
-          <div class="goal-card-sm">
-            <span class="goal-name-sm">Read Book</span>
-            <span class="goal-count-sm ndot-number">1/1</span>
-          </div>
-          <div class="goal-card-sm">
-            <span class="goal-name-sm">Exercise</span>
-            <span class="goal-count-sm ndot-number">0/1</span>
-          </div>
-          <div class="goal-card-sm">
-            <span class="goal-name-sm">Meditation</span>
-            <span class="goal-count-sm ndot-number">1/2</span>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- FULLSCREEN MODALS -->
-    <section class="fullscreen-models full-todo">
-      <div class="modal-card todo-modal-wide">
-        <div class="modal-header">
-          <h1 class="ndot-number">01 // TO-DO MATRIX</h1>
-          <button class="close-btn">
-            <i class="ri-close-line"></i>
-          </button>
-        </div>
-        <div class="todo-two-col">
-          <!-- LEFT PANEL: TASK ADD FORM -->
-          <div class="todo-left-panel">
-            <h2 class="panel-title">CREATE TASK</h2>
-            <form class="task-form">
-              <!-- Example of an error state on an input (added has-error class) -->
-              <div class="form-group task-title">
-                <div class="label-row">
-                  <label>TASK TITLE</label>
-                  <span class="error-msg title-error-msg" style="display: none"></span>
+          <div class="todo-two-col">
+            <!-- LEFT PANEL: TASK ADD FORM -->
+            <div class="todo-left-panel">
+              <h2 class="panel-title">CREATE TASK</h2>
+              <form class="task-form">
+                <!-- Example of an error state on an input (added has-error class) -->
+                <div class="form-group task-title">
+                  <div class="label-row">
+                    <label>TASK TITLE</label>
+                    <span
+                      class="error-msg title-error-msg"
+                      style="display: none"
+                    ></span>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="e.g. Design Wireframes"
+                    class="task-input-lg"
+                  />
                 </div>
-                <input type="text" placeholder="e.g. Design Wireframes" class="task-input-lg" />
-              </div>
 
-              <div class="form-group">
-                <div class="label-row">
-                  <label>CATEGORY</label>
-                  <span class="error-msg" style="display: none">SELECT A CATEGORY</span>
+                <div class="form-group">
+                  <div class="label-row">
+                    <label>CATEGORY</label>
+                    <span class="error-msg" style="display: none"
+                      >SELECT A CATEGORY</span
+                    >
+                  </div>
+                  <div class="category-selector">
+                    <span class="cat-pill active" id="0">WORK</span>
+                    <span class="cat-pill" id="1">PERSONAL</span>
+                    <span class="cat-pill" id="2">LEARNING</span>
+                    <span class="cat-pill" id="3">HEALTH</span>
+                  </div>
                 </div>
-                <div class="category-selector">
-                  <span class="cat-pill active" id="0">WORK</span>
+
+                <div class="form-group">
+                  <div class="label-row">
+                    <label>DESCRIPTION (OPTIONAL)</label>
+                    <span class="error-msg" style="display: none"
+                      >TEXT TOO LONG</span
+                    >
+                  </div>
+                  <textarea
+                    placeholder="Add more details here..."
+                    class="task-textarea"
+                  ></textarea>
+                </div>
+
+                <!-- Example error state on the button -->
+                <button class="white-pill-btn todoTask-submit-btn">
+                  ADD TASK
+                </button>
+              </form>
+            </div>
+
+            <!-- RIGHT PANEL: TASK LIST -->
+            <div class="todo-right-panel">
+              <div class="panel-header-row">
+                <h2 class="panel-title">ACTIVE TASKS</h2>
+                <div class="category-filter">
+                  <span class="cat-pill active" id="-1">ALL</span>
+                  <span class="cat-pill" id="0">WORK</span>
                   <span class="cat-pill" id="1">PERSONAL</span>
                   <span class="cat-pill" id="2">LEARNING</span>
                   <span class="cat-pill" id="3">HEALTH</span>
                 </div>
               </div>
-
-              <div class="form-group">
-                <div class="label-row">
-                  <label>DESCRIPTION (OPTIONAL)</label>
-                  <span class="error-msg" style="display: none">TEXT TOO LONG</span>
-                </div>
-                <textarea placeholder="Add more details here..." class="task-textarea"></textarea>
-              </div>
-
-              <!-- Example error state on the button -->
-              <button class="white-pill-btn todoTask-submit-btn">
-                ADD TASK
-              </button>
-            </form>
-          </div>
-
-          <!-- RIGHT PANEL: TASK LIST -->
-          <div class="todo-right-panel">
-            <div class="panel-header-row">
-              <h2 class="panel-title">ACTIVE TASKS</h2>
-              <div class="category-filter">
-                <span class="cat-pill active" id="-1">ALL</span>
-                <span class="cat-pill" id="0">WORK</span>
-                <span class="cat-pill" id="1">PERSONAL</span>
-                <span class="cat-pill" id="2">LEARNING</span>
-                <span class="cat-pill" id="3">HEALTH</span>
-              </div>
-            </div>
-            <div class="task-list">
-
-
+              <div class="task-list"></div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="fullscreen-models full-timer">
-      <div class="modal-card">
-        <div class="modal-header">
-          <h1 class="ndot-number">02 // TIMER</h1>
-          <button class="close-btn">
-            <i class="ri-close-line"></i>
-          </button>
+      <section class="fullscreen-models full-timer">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h1 class="ndot-number">02 // TIMER</h1>
+            <button class="close-btn">
+              <i class="ri-close-line"></i>
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
-    <section class="fullscreen-models full-motivational">
-      <div class="modal-card">
-        <div class="modal-header">
-          <h1 class="ndot-number">03 // MOTIVATIONAL COURSE</h1>
-          <button class="close-btn">
-            <i class="ri-close-line"></i>
-          </button>
+      </section>
+      <section class="fullscreen-models full-motivational">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h1 class="ndot-number">03 // MOTIVATIONAL COURSE</h1>
+            <button class="close-btn">
+              <i class="ri-close-line"></i>
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
-    <section class="fullscreen-models full-daily-planner" style="display: block;">
-      <div class="modal-card todo-modal-wide planner-modal-body">
-        <div class="modal-header">
-          <h1 class="ndot-number">04 // DAILY PLANNER TIMELINE</h1>
-          <button class="close-btn">
-            <i class="ri-close-line"></i>
-          </button>
-        </div>
-        
-        <div class="planner-grid-wrapper">
-          <div class="planner-slot has-task">
-            <div class="slot-header">
-              <span class="slot-time ndot-number">06:00 - 07:00</span>
-              <span class="dot-red-small"></span>
-            </div>
-            <input type="text" class="slot-title" value="Wake up & Hydrate" placeholder="..." />
+      </section>
+      <section
+        class="fullscreen-models full-daily-planner"
+        style="display: block"
+      >
+        <div class="modal-card todo-modal-wide planner-modal-body">
+          <div class="modal-header">
+            <h1 class="ndot-number">04 // DAILY PLANNER TIMELINE</h1>
+            <button class="close-btn">
+              <i class="ri-close-line"></i>
+            </button>
           </div>
 
-          <div class="planner-slot has-task">
+          <div class="planner-grid-wrapper">
+            <!-- <div class="planner-slot has-task">
             <div class="slot-header">
               <span class="slot-time ndot-number">07:00 - 08:00</span>
               <span class="dot-red-small"></span>
@@ -375,23 +395,22 @@
               <span class="slot-time ndot-number">21:00 - 22:00</span>
             </div>
             <input type="text" class="slot-title empty" value="" placeholder="..." />
+          </div> -->
           </div>
         </div>
-      </div>
-    </section>
-    <section class="fullscreen-models full-daily-goals">
-      <div class="modal-card">
-        <div class="modal-header">
-          <h1 class="ndot-number">05 // DAILY GOALS</h1>
-          <button class="close-btn">
-            <i class="ri-close-line"></i>
-          </button>
+      </section>
+      <section class="fullscreen-models full-daily-goals">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h1 class="ndot-number">05 // DAILY GOALS</h1>
+            <button class="close-btn">
+              <i class="ri-close-line"></i>
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
 
-  <script src="script.js"></script>
-</body>
-
+    <script src="script.js"></script>
+  </body>
 </html>

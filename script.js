@@ -217,13 +217,16 @@ function FeaturesTODO() {
     }
 
     if (incompleteTasks.length == 0) {
-      document.querySelector(".widget-todo .action-tag-pill").classList.remove("red-pill");
+      document
+        .querySelector(".widget-todo .action-tag-pill")
+        .classList.remove("red-pill");
       previewList.innerHTML = `<h3 class="empty-tasks-msg">NO PENDING TASKS YET </h3>
       <h5 class="empty-tasks-msg">Click For Add Task</h5>`;
     } else {
-      document.querySelector(".widget-todo .action-tag-pill").classList.add("red-pill");
+      document
+        .querySelector(".widget-todo .action-tag-pill")
+        .classList.add("red-pill");
     }
-
 
     // Calculate and update the progress bar
     const progressBar = document.getElementById("todo-progress-bar");
@@ -241,4 +244,52 @@ function FeaturesTODO() {
 }
 
 FeaturesTODO();
+
+let dalyPlannerData = JSON.parse(localStorage.getItem("dayPlannerData")) || [];
+
+function renderPlanner() {
+  let timeTable = Array.from(
+    { length: 18 },
+    (elem, idx) => `${6 + idx}:00 - ${7 + idx}:00`,
+  );
+
+  let plannerList = document.querySelector(".planner-grid-wrapper");
+  let plannerSum = "";
+
+  timeTable.forEach((elem, idx) => {
+    var saveValue = dalyPlannerData[idx] || "";
+    let hasTask = saveValue.trim().length > 0;
+
+    plannerSum += `<div class="planner-slot ${hasTask ? "has-task" : ""}">
+            <div class="slot-header">
+              <span class="slot-time ndot-number">${elem}</span>
+              <span class="dot-red-small" style="display:${hasTask ? "block" : "none"}"></span>
+            </div>
+            <input type="text" id="${idx}" class="slot-title" value="${saveValue}" placeholder="..." />
+          </div>`;
+  });
+  plannerList.innerHTML = plannerSum;
+}
+renderPlanner();
+
+let dayPlanner = document.querySelectorAll(".planner-slot");
+let dayPlannerInput = document.querySelectorAll(".planner-slot input");
+let dotRedSmall = document.querySelectorAll(".dot-red-small");
+
+dayPlannerInput.forEach((elem, idx) => {
+  elem.addEventListener("input", () => {
+    if (elem.value.trim().length > 0) {
+      dayPlanner[idx].classList.add("has-task");
+      dotRedSmall[idx].style.display = "block";
+    } else {
+      dayPlanner[idx].classList.remove("has-task");
+      dotRedSmall[idx].style.display = "none";
+    }
+
+    dalyPlannerData[idx] = elem.value;
+    localStorage.setItem("dayPlannerData", JSON.stringify(dalyPlannerData));
+  });
+});
+
+
 

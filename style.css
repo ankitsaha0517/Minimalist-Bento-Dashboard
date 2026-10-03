@@ -1078,6 +1078,13 @@ h1 {
   align-items: center;
 }
 
+.block{
+  display: block;
+}
+.none{
+  display: none;
+}
+
 .slot-time.ndot-number {
   font-size: clamp(14px, 1.2vw, 16px);
   color: var(--text-secondary);
