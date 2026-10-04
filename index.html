@@ -103,7 +103,7 @@
           </div>
         </section>
 
-        <!-- WIDGET 3: MOTIVATIONAL COURSE (1 COL X 1 ROW - COMPACT SQUARE) -->
+        <!-- WIDGET 3: MOTIVATIONAL QUOTES (1 COL X 1 ROW - COMPACT SQUARE) -->
         <section class="widget-card widget-course" id="2">
           <div class="card-header">
             <span class="tech-label">03 // MINDSET</span>
@@ -266,18 +266,61 @@
         </div>
       </section>
       <section class="fullscreen-models full-motivational">
-        <div class="modal-card">
+        <div class="modal-card todo-modal-wide motivational-single-modal">
           <div class="modal-header">
-            <h1 class="ndot-number">03 // MOTIVATIONAL COURSE</h1>
+            <h1 class="ndot-number">03 // MOTIVATIONAL QUOTES</h1>
             <button class="close-btn">
               <i class="ri-close-line"></i>
             </button>
           </div>
+
+          <!-- TOP CATEGORIES / MOOD BAR -->
+          <div class="quote-categories-row">
+            <span class="mood-matrix-title">MOOD MATRIX</span>
+            <div class="category-filter">
+              <span class="cat-pill active">ALL</span>
+              <span class="cat-pill">DISCIPLINE</span>
+              <span class="cat-pill">MINIMALISM</span>
+              <span class="cat-pill ">FOCUS</span>
+              <span class="cat-pill">GRIT</span>
+            </div>
+          </div>
+
+          <!-- UNIFIED SINGLE SHOWCASE PANEL -->
+          <div class="quote-unified-card">
+            <!-- TOP BAR -->
+            <div class="quote-card-header">
+              <div class="active-module-tag">
+                <span class="dot-red-small"></span>
+                <span>QUOTE OF THE DAY</span>
+              </div>
+            </div>
+
+            <!-- MAIN QUOTE BODY -->
+            <div class="quote-main-display">
+              <i class="ri-double-quotes-r quote-watermark-glyph"></i>
+              <blockquote class="quote-primary-text" id="modal-active-quote">
+                "Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away."
+              </blockquote>
+              <div class="quote-author-block">
+                <span class="author-dash">—</span>
+                <h3 class="author-name" id="modal-active-author">JOHN MAEDA</h3>
+              </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="quote-actions-toolbar">
+              <button class="white-pill-btn btn-generate" id="btn-next-quote" title="Generate New Quote">
+                <i class="ri-shuffle-line"></i> NEXT QUOTE
+              </button>
+              <button class="ghost-pill-btn btn-copy" id="btn-copy-quote" title="Copy to Clipboard">
+                <i class="ri-file-copy-line"></i> COPY
+              </button>
+            </div>
+          </div>
         </div>
       </section>
-      <section
-        class="fullscreen-models full-daily-planner"
-      >
+      <section class="fullscreen-models full-daily-planner">
         <div class="modal-card todo-modal-wide planner-modal-body">
           <div class="modal-header">
             <h1 class="ndot-number">04 // DAILY PLANNER TIMELINE</h1>

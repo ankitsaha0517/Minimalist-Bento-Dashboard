@@ -1078,10 +1078,10 @@ h1 {
   align-items: center;
 }
 
-.block{
+.block {
   display: block;
 }
-.none{
+.none {
   display: none;
 }
 
@@ -1120,9 +1120,15 @@ h1 {
 
 /* CURRENT TIME SLOT HIGHLIGHT */
 @keyframes current-slot-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
-  70% { box-shadow: 0 0 0 8px rgba(255, 0, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(255, 0, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
 }
 
 .planner-slot.current-slot {
@@ -1152,3 +1158,181 @@ h1 {
   color: var(--red-accent);
   font-weight: 600;
 }
+
+/* ==========================================================================
+   03 // MOTIVATIONAL QUOTES — UNIFIED SINGLE-PANEL SHOWCASE (EXACT SCREENSHOT)
+   ========================================================================== */
+
+.motivational-single-modal {
+  width: 75%;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for motivational modal */
+.motivational-single-modal::-webkit-scrollbar {
+  width: 5px;
+}
+.motivational-single-modal::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+/* MOOD / CATEGORIES FILTER BAR */
+.quote-categories-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 0 16px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+.mood-matrix-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  letter-spacing: 1.5px;
+}
+
+/* UNIFIED SINGLE SHOWCASE CARD CONTAINER */
+.quote-unified-card {
+  background: var(--card-inset);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-card);
+  padding: clamp(20px, 2.2vw, 30px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* TOP BAR: ACTIVE MODULE */
+.quote-card-header {
+  display: flex;
+  align-items: center;
+}
+
+.active-module-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 1.5px;
+}
+
+/* MAIN QUOTE BODY WITH CURVED RED ACCENT */
+.quote-main-display {
+  position: relative;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 4px solid var(--red-accent);
+  border-radius: var(--radius-inset);
+  padding: clamp(26px, 2.6vw, 36px);
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.quote-main-display:hover {
+  background: rgba(0, 0, 0, 0.55);
+  border-color: rgba(255, 255, 255, 0.12);
+  border-left-color: var(--red-accent);
+}
+
+.quote-watermark-glyph {
+  position: absolute;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 80px;
+  color: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.quote-primary-text {
+  font-size: clamp(17px, 1.45vw, 22px);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.55;
+  color: #ffffff;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.quote-author-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.quote-author-block .author-dash {
+  color: var(--red-accent);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.quote-author-block .author-name {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+/* ACTION BUTTONS TOOLBAR */
+.quote-actions-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ghost-pill-btn {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 0.8vw, 12px);
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ghost-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: scale(1.03);
+}
+
+.ghost-pill-btn:active {
+  background: rgba(255, 0, 0, 0.15);
+  border-color: var(--red-accent);
+  color: var(--red-accent);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .motivational-single-modal {
+    width: 95vw;
+    padding: 18px;
+  }
+}
+
+
