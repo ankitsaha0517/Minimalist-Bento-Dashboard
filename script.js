@@ -245,51 +245,82 @@ function FeaturesTODO() {
 
 FeaturesTODO();
 
-let dalyPlannerData = JSON.parse(localStorage.getItem("dayPlannerData")) || [];
+function FeaturesDailyPlanner() {
+  let dalyPlannerData =
+    JSON.parse(localStorage.getItem("dayPlannerData")) || [];
+  function renderPlanner() {
+    let timeTable = Array.from(
+      { length: 18 },
+      (elem, idx) => `${6 + idx}:00 - ${7 + idx}:00`,
+    );
 
-function renderPlanner() {
-  let timeTable = Array.from(
-    { length: 18 },
-    (elem, idx) => `${6 + idx}:00 - ${7 + idx}:00`,
+    let plannerList = document.querySelector(".planner-grid-wrapper");
+    let plannerSum = "";
+
+    timeTable.forEach((elem, idx) => {
+      var saveValue = dalyPlannerData[idx] || "";
+      let hasTask = saveValue.trim().length > 0;
+
+      plannerSum += `<div class="planner-slot ${hasTask ? "has-task" : ""}" id="${6 + idx}">
+              <div class="slot-header">
+                <span class="slot-time ndot-number">${elem}</span>
+                <span class="dot-red-small" style="display:${hasTask ? "block" : "none"}"></span>
+              </div>
+              <input type="text" id="${idx}" class="slot-title" value="${saveValue}" placeholder="..." />
+            </div>`;
+    });
+    plannerList.innerHTML = plannerSum;
+  }
+
+  function handlePlannerInput() {
+    let dayPlanner = document.querySelectorAll(".planner-slot");
+    let dayPlannerInput = document.querySelectorAll(".planner-slot input");
+    let dotRedSmall = document.querySelectorAll(".dot-red-small");
+
+    dayPlannerInput.forEach((elem, idx) => {
+      elem.addEventListener("input", () => {
+        if (elem.value.trim().length > 0) {
+          dayPlanner[idx].classList.add("has-task");
+          dotRedSmall[idx].style.display = "block";
+        } else {
+          dayPlanner[idx].classList.remove("has-task");
+          dotRedSmall[idx].style.display = "none";
+        }
+
+        dalyPlannerData[idx] = elem.value;
+        localStorage.setItem("dayPlannerData", JSON.stringify(dalyPlannerData));
+      });
+    });
+  }
+  function currentSlotMarker() {
+    const IST = new Date().toLocaleString("en-US", {
+      hour: "numeric",
+      hour12: false,
+      timeZone: "Asia/Kolkata",
+    });
+    let plannerSlot = document.querySelectorAll(".planner-slot");
+
+    plannerSlot.forEach((slot) => {
+      slot.classList.remove("current-slot");
+      if (Number(IST) == 1) {
+        localStorage.clear("dayPlannerData");
+      }
+      if (slot.id == Number(IST)) {
+        slot.classList.add("current-slot");
+      }
+    });
+  }
+
+  renderPlanner();
+  currentSlotMarker();
+  handlePlannerInput();
+
+  setInterval(
+    () => {
+      renderPlanner();
+      currentSlotMarker();
+    },
+    1000 * 60 * 60,
   );
-
-  let plannerList = document.querySelector(".planner-grid-wrapper");
-  let plannerSum = "";
-
-  timeTable.forEach((elem, idx) => {
-    var saveValue = dalyPlannerData[idx] || "";
-    let hasTask = saveValue.trim().length > 0;
-
-    plannerSum += `<div class="planner-slot ${hasTask ? "has-task" : ""}">
-            <div class="slot-header">
-              <span class="slot-time ndot-number">${elem}</span>
-              <span class="dot-red-small" style="display:${hasTask ? "block" : "none"}"></span>
-            </div>
-            <input type="text" id="${idx}" class="slot-title" value="${saveValue}" placeholder="..." />
-          </div>`;
-  });
-  plannerList.innerHTML = plannerSum;
 }
-renderPlanner();
-
-let dayPlanner = document.querySelectorAll(".planner-slot");
-let dayPlannerInput = document.querySelectorAll(".planner-slot input");
-let dotRedSmall = document.querySelectorAll(".dot-red-small");
-
-dayPlannerInput.forEach((elem, idx) => {
-  elem.addEventListener("input", () => {
-    if (elem.value.trim().length > 0) {
-      dayPlanner[idx].classList.add("has-task");
-      dotRedSmall[idx].style.display = "block";
-    } else {
-      dayPlanner[idx].classList.remove("has-task");
-      dotRedSmall[idx].style.display = "none";
-    }
-
-    dalyPlannerData[idx] = elem.value;
-    localStorage.setItem("dayPlannerData", JSON.stringify(dalyPlannerData));
-  });
-});
-
-
-
+FeaturesDailyPlanner();
