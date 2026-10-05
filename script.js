@@ -324,3 +324,105 @@ function FeaturesDailyPlanner() {
   );
 }
 FeaturesDailyPlanner();
+
+function FeaturesMotivationalQuotes() {
+  function getRandomQuotes() {
+    return fetch("https://dummyjson.com/quotes/random").then((res) => {
+      if (!res.ok) throw new Error("Unable to fetch quotes");
+      return res.json();
+    });
+  }
+  function renderQuote(quoteData) {
+    let quoteDisplay = document.querySelector(".quote-main-display");
+    let quoteSum = "";
+    quoteSum += `
+     <i class="ri-double-quotes-r quote-watermark-glyph"></i>
+              <blockquote class="quote-primary-text" id="modal-active-quote">
+                "${quoteData.quote}"
+              </blockquote>
+              <div class="quote-author-block">
+                <span class="author-dash">—</span>
+                <h3 class="author-name" id="modal-active-author">${quoteData.author}</h3>
+              </div>
+    `;
+
+    quoteDisplay.innerHTML = quoteSum;
+  }
+
+  function outerQuote(quoteData) {
+    let outerQuoteDisplay = document.querySelector(".course-preview");
+    let outerQuoteSum = "";
+
+    // Jab tak full stop (.) na aaye tab tak show karo, full stop ke baad "..."
+    let quoteText = quoteData.quote.trim();
+    let dotIndex = quoteText.indexOf(".");
+    if (dotIndex !== -1) {
+      quoteText = quoteText.substring(0, dotIndex) + "...";
+    }
+
+    outerQuoteSum += ` <span class="ndot-number module-code">Quote of The Day</span>
+            <h3 class="quote-headline" id="widget-quote-display">
+              <span class="text-animate-line">${quoteText}</span>
+            </h3>
+            <div class="author-tag">— ${quoteData.author}</div>`;
+
+    outerQuoteDisplay.innerHTML = outerQuoteSum;
+  }
+
+  function retryBtnFeature() {
+    let retryBtn = document.querySelector("#btn-next-quote");
+
+    retryBtn.addEventListener("click", () => {
+      copyBtnFeature();
+      retryBtn.textContent = "Loding";
+      setTimeout(() => {
+        getRandomQuotes()
+          .then((data) => {
+            renderQuote(data);
+            outerQuote(data);
+            retryBtn.textContent = "NEXT QUOTES";
+          })
+          .catch((err) => (retryBtn.textContent = err.message));
+      }, 1000);
+    });
+  }
+
+  function copyBtnFeature() {
+    let copyBtn = document.getElementById("btn-copy-quote");
+    copyBtn.classList.remove("copied", "failed");
+    copyBtn.innerHTML = `<i class="ri-file-copy-line"></i> COPY`;
+    copyBtn.addEventListener("click", async () => {
+      let quoteElement = document.getElementById("modal-active-quote");
+      let authorName = document.querySelector(".author-tag");
+      let copyText = quoteElement
+        ? quoteElement.textContent.trim() + authorName.textContent.trim()
+        : "";
+      try {
+        await navigator.clipboard.writeText(copyText);
+        copyBtn.innerHTML = `<i class="ri-check-line"></i> COPIED`;
+        copyBtn.classList.add("copied");
+      } catch (err) {
+        copyBtn.innerHTML = `<i class="ri-close-line"></i> FAILED`;
+        copyBtn.classList.add("failed");
+      }
+    });
+
+    let crossBtn = document.querySelector(".full-motivational .close-btn");
+    crossBtn.addEventListener("click", () => {
+      copyBtn.classList.remove("copied","failed");
+      copyBtn.innerHTML = `<i class="ri-file-copy-line"></i> COPY`;
+    });
+  }
+
+  getRandomQuotes()
+    .then((data) => {
+      renderQuote(data);
+      outerQuote(data);
+    })
+    .catch((err) => console.log(err));
+
+  retryBtnFeature();
+  copyBtnFeature();
+}
+
+FeaturesMotivationalQuotes();

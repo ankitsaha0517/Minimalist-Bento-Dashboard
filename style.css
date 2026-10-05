@@ -443,16 +443,32 @@ h1 {
   padding: 5px 0;
 }
 
-.module-code {
+/* MAGIC UI TEXT-ANIMATE (fadeIn by line) FOR COURSE & QUOTE */
+@keyframes textAnimateFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+.course-preview .module-code {
   font-family: var(--font-nothing) !important;
   font-size: clamp(12px, 0.97vw, 14px);
   color: var(--red-accent);
   letter-spacing: 1.5px;
   display: block;
   margin-bottom: 8px;
+  opacity: 0;
+  animation: textAnimateFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
 }
 
-.quote-headline {
+.course-preview .quote-headline {
   font-size: clamp(12px, 0.95vw, 14px);
   font-weight: 200;
   line-height: 1.6;
@@ -461,11 +477,31 @@ h1 {
   margin-bottom: 14px;
 }
 
-.author-tag {
+.text-animate-line {
+  display: block;
+  opacity: 0;
+  animation: textAnimateFadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.course-preview .text-animate-line:nth-child(1) {
+  animation-delay: 0.35s;
+}
+
+.course-preview .text-animate-line:nth-child(2) {
+  animation-delay: 0.55s;
+}
+
+.course-preview .text-animate-line:nth-child(3) {
+  animation-delay: 0.75s;
+}
+
+.course-preview .author-tag {
   font-family: var(--font-mono);
   font-size: clamp(9px, 0.75vw, 11px);
   font-weight: 200;
   color: var(--text-secondary);
+  opacity: 0;
+  animation: textAnimateFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.75s forwards;
 }
 
 /* WIDGET 4: DAILY PLANNER */
@@ -1241,6 +1277,7 @@ h1 {
   flex-direction: column;
   justify-content: center;
   transition: all 0.25s ease;
+  overflow: hidden;
 }
 
 .quote-main-display:hover {
@@ -1251,12 +1288,16 @@ h1 {
 
 .quote-watermark-glyph {
   position: absolute;
-  right: 28px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 80px;
-  color: rgba(255, 255, 255, 0.05);
+  right: 24px;
+  top: 14px;
+  transform: none;
+  font-size: clamp(90px, 7.5vw, 115px);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.06);
   pointer-events: none;
+  opacity: 1;
+  animation: none !important;
+  z-index: 0;
 }
 
 .quote-primary-text {
@@ -1268,6 +1309,9 @@ h1 {
   margin-bottom: 20px;
   position: relative;
   z-index: 1;
+  opacity: 0;
+  animation: textAnimateFadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.15s
+    forwards;
 }
 
 .quote-author-block {
@@ -1276,6 +1320,9 @@ h1 {
   gap: 10px;
   position: relative;
   z-index: 1;
+  opacity: 0;
+  animation: textAnimateFadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.35s
+    forwards;
 }
 
 .quote-author-block .author-dash {
@@ -1298,6 +1345,11 @@ h1 {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+#btn-next-quote:active {
+  transform: scale(0.96);
+  box-shadow: 0 0 14px rgba(255, 0, 0, 0.45);
 }
 
 .ghost-pill-btn {
@@ -1327,6 +1379,212 @@ h1 {
   color: var(--red-accent);
 }
 
+/* ==========================================================================
+   COPIED STATE — CRISP GREEN STATE (NO BLUR, NO SIZE POP-UP)
+   ========================================================================== */
+
+.ghost-pill-btn.copied {
+  background: rgba(0, 255, 102, 0.08) !important;
+  border-color: var(--green-accent) !important;
+  color: var(--green-accent) !important;
+  box-shadow: none !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+.ghost-pill-btn.copied i {
+  color: var(--green-accent) !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+.ghost-pill-btn.failed {
+  background: rgba(255, 0, 0, 0.08) !important;
+  border-color: var(--red-accent) !important;
+  color: var(--red-accent) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* ==========================================================================
+   LOADING EFFECT & SKELETON — MOTIVATIONAL QUOTES
+   ========================================================================== */
+
+.quote-skeleton-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.quote-skeleton-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+  opacity: 0;
+  animation: textAnimateFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+.skeleton-pulse-dot {
+  width: 7px;
+  height: 7px;
+  background-color: var(--red-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--red-accent);
+  animation: quoteDotPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes quoteDotPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.95);
+  }
+}
+
+.skeleton-matrix-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 0, 0, 0.4);
+  color: var(--red-accent);
+  letter-spacing: 1px;
+  margin-left: auto;
+}
+
+.quote-skeleton-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.skeleton-line {
+  height: 18px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.11) 40%,
+    rgba(255, 0, 0, 0.14) 50%,
+    rgba(255, 255, 255, 0.11) 60%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 250% 100%;
+}
+
+.skeleton-line.line-lg {
+  width: 88%;
+  opacity: 0;
+  animation:
+    textAnimateFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards,
+    quoteShimmer 1.7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.skeleton-line.line-xl {
+  width: 96%;
+  opacity: 0;
+  animation:
+    textAnimateFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards,
+    quoteShimmer 1.7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.skeleton-line.line-md {
+  width: 55%;
+  opacity: 0;
+  animation:
+    textAnimateFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards,
+    quoteShimmer 1.7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.quote-skeleton-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  opacity: 0;
+  animation: textAnimateFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+}
+
+.skeleton-dash {
+  color: var(--red-accent);
+  font-size: 18px;
+  font-weight: 700;
+  opacity: 0.55;
+}
+
+.skeleton-line.line-author {
+  width: 130px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+@keyframes quoteShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Pulsing watermark glyph in loading state */
+.quote-glyph-pulse {
+  animation: quoteGlyphPulse 2s ease-in-out infinite;
+}
+
+@keyframes quoteGlyphPulse {
+  0%,
+  100% {
+    opacity: 0.03;
+    transform: translateY(-50%) scale(0.96);
+  }
+  50% {
+    opacity: 0.09;
+    transform: translateY(-50%) scale(1.04);
+  }
+}
+
+/* Cybernetic text delete-and-reveal animations */
+@keyframes quoteDigitalReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(5px);
+    letter-spacing: 1.5px;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+    letter-spacing: normal;
+  }
+}
+
+@keyframes quoteAuthorReveal {
+  0% {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .motivational-single-modal {
@@ -1334,5 +1592,3 @@ h1 {
     padding: 18px;
   }
 }
-
-
