@@ -249,12 +249,96 @@
       </section>
 
       <section class="fullscreen-models full-timer">
-        <div class="modal-card">
+        <div class="modal-card todo-modal-wide timer-modal-single">
           <div class="modal-header">
             <h1 class="ndot-number">02 // TIMER</h1>
-            <button class="close-btn">
+            <button class="close-btn" title="Close Timer">
               <i class="ri-close-line"></i>
             </button>
+          </div>
+
+          <!-- TOP BAR: PROTOCOL BADGE & CURRENT MODE STATUS -->
+          <div class="timer-protocol-bar">
+            <div class="active-module-tag">
+              <span class="dot-red-small"></span>
+              <span>SYS // POMODORO PROTOCOL</span>
+            </div>
+            <div class="timer-mode-status-tag">
+              <span class="action-tag-pill red-pill">ACTIVE</span>
+            </div>
+          </div>
+
+          <!-- SEPARATED TIMINGS PANEL: FOCUS TIMERS vs BREAK TIMES -->
+          <div class="timer-timings-split-panel">
+            <!-- GROUP 1: FOCUS TIMERS (25, 45, 50, 60 MIN) -->
+            <div class="timing-cluster focus-cluster">
+              <div class="cluster-label">
+                <span class="tech-label">FOCUS //</span>
+              </div>
+              <div class="timing-pills-row" id="focus-timings-group">
+                <span class="cat-pill active" id="timer-focus-25" data-time="25:00">25 MIN</span>
+                <span class="cat-pill" id="timer-focus-45" data-time="45:00">45 MIN</span>
+                <span class="cat-pill" id="timer-focus-50" data-time="50:00">50 MIN</span>
+                <span class="cat-pill" id="timer-focus-60" data-time="60:00">60 MIN</span>
+              </div>
+            </div>
+
+            <div class="cluster-divider"></div>
+
+            <!-- GROUP 2: BREAK TIME (5M SHORT, 10M REST, 15M LONG) -->
+            <div class="timing-cluster break-cluster">
+              <div class="cluster-label">
+                <span class="tech-label">BREAK //</span>
+              </div>
+              <div class="timing-pills-row" id="break-timings-group">
+                <span class="cat-pill" id="timer-break-5" data-time="05:00">05M SHORT</span>
+                <span class="cat-pill" id="timer-break-10" data-time="10:00">10M REST</span>
+                <span class="cat-pill" id="timer-break-15" data-time="15:00">15M LONG</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- MAIN GRID CANVAS (NOTHING OS TECHNICAL BLUEPRINT) -->
+          <div class="timer-blueprint-canvas">
+            <!-- BIG DIGITAL TIME DISPLAY (NOTHING OS DOT MATRIX NUMBERING) -->
+            <div class="timer-digits-wrapper">
+              <span class="timer-countdown-val ndot-number" id="pomodoro-timer-digits">25:00</span>
+            </div>
+
+            <!-- ESTIMATED COMPLETION METRIC -->
+            <div class="timer-meta-wrapper">
+              <span class="date-sub timer-est-text" id="pomodoro-estimated-completion">ESTIMATED_COMPLETION: 14:30 PM</span>
+            </div>
+
+            <!-- UNIFIED ACTION GROUP: START + RESET/SKIP -->
+            <div class="timer-action-group">
+              <div class="timer-primary-action-wrap">
+                <button class="timer-box-start-btn" id="pomodoro-start-btn" type="button">
+                  START
+                </button>
+              </div>
+
+              <!-- SECONDARY CONTROLS (RESET & SKIP SESSION) -->
+              <div class="timer-secondary-actions-wrap">
+                <button class="timer-action-text-btn btn-reset" id="pomodoro-reset-btn" type="button">
+                  <i class="ri-restart-line"></i> RESET
+                </button>
+                <button class="timer-action-text-btn btn-skip" id="pomodoro-skip-btn" type="button">
+                  SKIP SESSION <i class="ri-skip-forward-fill"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOTTOM FOOTER INFO (NOTHING DESIGN DETAIL) -->
+          <div class="timer-card-footer">
+            <div class="timer-session-info">
+              <span class="dot-red-small"></span>
+              <span class="ndot-number">CYCLE // 01 OF 04</span>
+            </div>
+            <div class="timer-stats-info">
+              <span class="action-tag-pill">AUTO-TRANSITION</span>
+            </div>
           </div>
         </div>
       </section>
