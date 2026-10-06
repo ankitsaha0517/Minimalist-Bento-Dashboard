@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Productivity Dashboard</title>
     <meta name="description" content="A productivity dashboard" />
-
+    <link rel="shortcut icon" href="./circle.png" type="image/x-icon">
     <!-- Google Fonts: Doto (Nothing Dot Matrix Numbering), Space Grotesk, Space Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -248,7 +248,7 @@
         </div>
       </section>
 
-      <section class="fullscreen-models full-timer">
+      <section class="fullscreen-models full-timer" style="display: block">
         <div class="modal-card todo-modal-wide timer-modal-single">
           <div class="modal-header">
             <h1 class="ndot-number">02 // TIMER</h1>
@@ -275,11 +275,11 @@
               <div class="cluster-label">
                 <span class="tech-label">FOCUS //</span>
               </div>
-              <div class="timing-pills-row" id="focus-timings-group">
-                <span class="cat-pill active" id="timer-focus-25" data-time="25:00">25 MIN</span>
-                <span class="cat-pill" id="timer-focus-45" data-time="45:00">45 MIN</span>
-                <span class="cat-pill" id="timer-focus-50" data-time="50:00">50 MIN</span>
-                <span class="cat-pill" id="timer-focus-60" data-time="60:00">60 MIN</span>
+              <div class="timing-pills-focus-row" id="focus-timings-group">
+                <span class="cat-pill active" id="timer-focus-25" data-time="25">25 MIN</span>
+                <span class="cat-pill" id="timer-focus-45" data-time="45">45 MIN</span>
+                <span class="cat-pill" id="timer-focus-50" data-time="50">50 MIN</span>
+                <span class="cat-pill" id="timer-focus-60" data-time="60">60 MIN</span>
               </div>
             </div>
 
@@ -290,10 +290,10 @@
               <div class="cluster-label">
                 <span class="tech-label">BREAK //</span>
               </div>
-              <div class="timing-pills-row" id="break-timings-group">
-                <span class="cat-pill" id="timer-break-5" data-time="05:00">05M SHORT</span>
-                <span class="cat-pill" id="timer-break-10" data-time="10:00">10M REST</span>
-                <span class="cat-pill" id="timer-break-15" data-time="15:00">15M LONG</span>
+              <div class="timing-pills-break-row" id="break-timings-group">
+                <span class="cat-pill active" id="timer-break-5" data-time="05">05M SHORT</span>
+                <span class="cat-pill" id="timer-break-10" data-time="10">10M REST</span>
+                <span class="cat-pill" id="timer-break-15" data-time="15">15M LONG</span>
               </div>
             </div>
           </div>
@@ -302,7 +302,7 @@
           <div class="timer-blueprint-canvas">
             <!-- BIG DIGITAL TIME DISPLAY (NOTHING OS DOT MATRIX NUMBERING) -->
             <div class="timer-digits-wrapper">
-              <span class="timer-countdown-val ndot-number" id="pomodoro-timer-digits">25:00</span>
+              <span class="timer-countdown-val ndot-number" id="pomodoro-timer-digits"> </span>
             </div>
 
             <!-- ESTIMATED COMPLETION METRIC -->

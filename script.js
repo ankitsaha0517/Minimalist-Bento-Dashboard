@@ -409,7 +409,7 @@ function FeaturesMotivationalQuotes() {
 
     let crossBtn = document.querySelector(".full-motivational .close-btn");
     crossBtn.addEventListener("click", () => {
-      copyBtn.classList.remove("copied","failed");
+      copyBtn.classList.remove("copied", "failed");
       copyBtn.innerHTML = `<i class="ri-file-copy-line"></i> COPY`;
     });
   }
@@ -425,4 +425,93 @@ function FeaturesMotivationalQuotes() {
   copyBtnFeature();
 }
 
-FeaturesMotivationalQuotes();
+// FeaturesMotivationalQuotes();
+
+let focusSecond = 25 * 60;
+let breakSecond = 5 * 60;
+let isFocusMode = true;
+
+let startBtn = document.querySelector(".timer-box-start-btn");
+let resetBtn = document.querySelector(".btn-reset");
+let timerCountdownVal = document.querySelector(".timer-countdown-val");
+
+function upDateTime() {
+  let minutes = Math.floor((isFocusMode ? focusSecond : breakSecond) / 60);
+  let seconds = (isFocusMode ? focusSecond : breakSecond) % 60;
+
+  // Format with leading zeros (e.g., 25:00)
+  timerCountdownVal.innerHTML = `${String(minutes).padStart(2, "0")} : ${String(seconds).padStart(2, "0")}`;
+}
+
+upDateTime();
+
+startBtn.addEventListener("click", () => {
+  let activeInterval = setInterval(() => {
+    upDateTime();
+    if (isFocusMode) {
+      focusSecond--;
+      if (focusSecond > 0) {
+        startBtn.innerHTML = `PUSE`;
+      }
+      if (focusSecond < 0) {
+        clearInterval(activeInterval);
+        console.log(" Timer Completed");
+        isFocusMode = false;
+        breakSecond =
+          Number(
+            document.querySelector(".timing-pills-break-row .active").dataset
+              .time,
+          ) * 60;
+        upDateTime();
+        startBtn.innerHTML = `Now go to brack Time`;
+      }
+    } else if (!isFocusMode) {
+      breakSecond--;
+      if (breakSecond < 0) {
+        clearInterval(activeInterval);
+        console.log(" Break complete ");
+        isFocusMode = true;
+        focusSecond =
+          Number(
+            document.querySelector(".timing-pills-focus-row .active").dataset
+              .time,
+          ) * 60;
+        upDateTime();
+        startBtn.innerHTML = `Start`;
+      }
+    }
+  }, 10);
+});
+
+function timingPillsFeature() {
+  let focusTime = document.querySelectorAll(
+    ".timing-pills-focus-row .cat-pill",
+  );
+  let breakTime = document.querySelectorAll(
+    ".timing-pills-break-row .cat-pill",
+  );
+
+  focusTime.forEach((elem) => {
+    elem.addEventListener("click", () => {
+      focusTime.forEach((e) => {
+        e.classList.remove("active");
+      });
+      elem.classList.add("active");
+      focusSecond = parseInt(elem.dataset.time) * 60;
+      upDateTime();
+    });
+  });
+
+  breakTime.forEach((elem) => {
+    elem.addEventListener("click", () => {
+      breakTime.forEach((e) => {
+        e.classList.remove("active");
+      });
+      elem.classList.add("active");
+      breakSecond = parseInt(elem.dataset.time) * 60;
+      upDateTime();
+    });
+  });
+}
+
+timingPillsFeature();
