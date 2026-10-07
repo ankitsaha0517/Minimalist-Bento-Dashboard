@@ -368,15 +368,208 @@ h1 {
   background: var(--card-bg);
 }
 
-.timer-preview-layout {
+/* WIDGET 2: TIMER — MINIMALIST FLIP CLOCK WITH NOTHING OS DESIGN */
+
+.timer-flip-display {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  gap: 10px;
+  gap: clamp(10px, 1.2vw, 16px);
+  width: 100%;
   flex: 1;
+  padding: 4px 0;
 }
 
+/* CLEAN TIMER TILE BOX (PURE BOX — NO SLIT) */
+.flip-tile {
+  position: relative;
+  flex: 1;
+  max-width: clamp(96px, 10vw, 130px);
+  height: clamp(96px, 10vw, 130px);
+  background: #181818;
+  border-radius: clamp(14px, 1.4vw, 20px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.7),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.flip-tile:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 16px 36px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(255, 0, 0, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+/* NOTHING OS DOT-MATRIX NUMBERS — LARGE & CLEAN */
+.flip-tile-num.ndot-number {
+  font-family: var(--font-nothing) !important;
+  font-size: clamp(44px, 4.8vw, 68px) !important;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: clamp(1px, 0.2vw, 3px);
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.18);
+  z-index: 2;
+  position: relative;
+  pointer-events: none;
+}
+
+/* SUBTLE CORNER BADGE (LIKE "PM" IN REFERENCE) */
+.flip-tile-badge {
+  position: absolute;
+  bottom: clamp(7px, 0.8vw, 10px);
+  left: clamp(9px, 1vw, 12px);
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 0.75vw, 11px);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1.5px;
+  line-height: 1;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* CLEAN BOTTOM ACTION FOOTER */
+.timer-widget-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+/* ==========================================================================
+   NEON REDDISH & BLACKISH SESSION BADGE (APPEALING CYBER / NOTHING OS)
+   ========================================================================== */
+
+.timer-session-badge,
+#widget-prompt-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 0.75vw, 11px);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ff3333;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 0, 0, 0.16) 0%,
+    rgba(12, 12, 12, 0.95) 50%,
+    rgba(35, 4, 4, 0.9) 100%
+  );
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 45, 45, 0.55);
+  box-shadow:
+    0 0 14px rgba(255, 0, 0, 0.28),
+    inset 0 0 10px rgba(255, 0, 0, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.7);
+  text-shadow:
+    0 0 8px rgba(255, 50, 50, 0.8),
+    0 0 18px rgba(255, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Glowing pulsing neon red dot */
+.timer-session-badge::before,
+#widget-prompt-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff2222;
+  box-shadow:
+    0 0 8px #ff2222,
+    0 0 14px rgba(255, 0, 0, 0.9);
+  animation: neonRedPulse 1.4s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+@keyframes neonRedPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 8px #ff2222, 0 0 14px rgba(255, 0, 0, 0.9);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+    box-shadow: 0 0 3px #ff2222;
+  }
+}
+
+.timer-session-badge:hover,
+#widget-prompt-tag:hover {
+  border-color: rgba(255, 60, 60, 0.85);
+  box-shadow:
+    0 0 20px rgba(255, 0, 0, 0.45),
+    inset 0 0 12px rgba(255, 0, 0, 0.2),
+    0 6px 16px rgba(0, 0, 0, 0.8);
+  transform: translateY(-1px);
+}
+
+/* BREAK MODE — NEON GREENISH & BLACKISH VARIANT */
+.timer-session-badge.break-mode,
+#widget-prompt-tag.break-mode {
+  color: #00ff88;
+  border-color: rgba(0, 255, 136, 0.6);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 136, 0.16) 0%,
+    rgba(10, 14, 12, 0.95) 50%,
+    rgba(5, 25, 15, 0.9) 100%
+  );
+  box-shadow:
+    0 0 14px rgba(0, 255, 136, 0.28),
+    inset 0 0 10px rgba(0, 255, 136, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.7);
+  text-shadow:
+    0 0 8px rgba(0, 255, 136, 0.75),
+    0 0 18px rgba(0, 255, 136, 0.35);
+}
+
+.timer-session-badge.break-mode::before,
+#widget-prompt-tag.break-mode::before {
+  background: #00ff88;
+  box-shadow:
+    0 0 8px #00ff88,
+    0 0 14px rgba(0, 255, 136, 0.9);
+  animation: neonGreenPulse 1.4s infinite ease-in-out;
+}
+
+@keyframes neonGreenPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 8px #00ff88, 0 0 14px rgba(0, 255, 136, 0.9);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+    box-shadow: 0 0 3px #00ff88;
+  }
+}
+
+
+/* LEGACY DIAL FALLBACK (RETAINED) */
 .timer-dial-mini {
   width: clamp(90px, 9vw, 120px);
   height: clamp(90px, 9vw, 120px);
@@ -390,19 +583,6 @@ h1 {
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-.timer-dial-mini::before {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 8px;
-  height: 8px;
-  background: var(--red-accent);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--red-accent);
-}
-
 .hero-timer-digits {
   font-family: var(--font-nothing) !important;
   font-size: clamp(18px, 1.8vw, 24px);
@@ -412,9 +592,10 @@ h1 {
 
 .timer-info {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  width: 100%;
 }
 
 .prompt-badge {

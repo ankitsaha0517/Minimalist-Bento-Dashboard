@@ -446,6 +446,26 @@ let pauseBtn = document.querySelector("#pomodoro-pause-btn");
 let resetBtn = document.querySelector(".btn-reset");
 let timerCountdownVal = document.querySelector(".timer-countdown-val");
 
+let widgetFlipMin = document.querySelector("#widget-flip-min");
+let widgetFlipSec = document.querySelector("#widget-flip-sec");
+let widgetTimerDigits = document.querySelector("#widget-timer-digits");
+let widgetPromptTag = document.querySelector("#widget-prompt-tag");
+
+function renderWidgetTimer() {
+  let minutes = Math.floor((isFocusMode ? focusSecond : breakSecond) / 60);
+  let seconds = (isFocusMode ? focusSecond : breakSecond) % 60;
+
+  if (widgetFlipMin) {
+    widgetFlipMin.textContent = String(minutes).padStart(2, "0");
+  }
+  if (widgetFlipSec) {
+    widgetFlipSec.textContent = String(seconds).padStart(2, "0");
+  }
+  if (widgetTimerDigits) {
+    widgetTimerDigits.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  }
+}
+
 function upDateTime() {
   let minutes = Math.floor((isFocusMode ? focusSecond : breakSecond) / 60);
   let seconds = (isFocusMode ? focusSecond : breakSecond) % 60;
@@ -453,80 +473,139 @@ function upDateTime() {
   // Format with leading zeros (e.g., 25:00)
   timerCountdownVal.innerHTML = `${String(minutes).padStart(2, "0")} : ${String(seconds).padStart(2, "0")}`;
   timerCycle.innerHTML = `CYCLE // ${String(cycleCount).padStart(2, "0")} OF 04 ${cycleCount > 3 ? "   >>> Time completed" : ""}`;
+
+  renderWidgetTimer();
 }
 let activeInterval = null;
-upDateTime();
-pauseBtn.style.display = "none";
 
-// start button
-startBtn.addEventListener("click", () => {
-  timerCountdownVal.classList.remove("blink-digital");
-  activeInterval = setInterval(() => {
-    upDateTime();
-    if (isFocusMode) {
+// UI State Manager: Segregates DOM & button visibility updates from timer ticks
+function setTimerUIState(state) {
+  switch (state) {
+    case "running":
       startBtn.style.display = "none";
       pauseBtn.style.display = "block";
+      timerCountdownVal.classList.remove("blink-digital");
+      if (widgetPromptTag) {
+        widgetPromptTag.textContent = isFocusMode ? " Focus Mode" : " Break Time";
+      }
+      break;
+
+    case "paused":
+      pauseBtn.style.display = "none";
+      startBtn.style.display = "block";
+      startBtn.innerHTML = `Resume`;
+      timerCountdownVal.classList.add("blink-digital");
+      break;
+
+    case "break-ready":
+      pauseBtn.style.display = "none";
+      startBtn.style.display = "block";
+      startBtn.innerHTML = `Now go to Break Time`;
+      timerCountdownVal.classList.add("blink-digital");
+      if (widgetPromptTag) {
+        widgetPromptTag.textContent = " Break Time";
+      }
+      break;
+
+    case "focus-ready":
+      pauseBtn.style.display = "none";
+      startBtn.style.display = "block";
+      startBtn.innerHTML = `Start`;
+      timerCountdownVal.classList.add("blink-digital");
+      if (widgetPromptTag) {
+        widgetPromptTag.textContent = " Focus Mode";
+      }
+      break;
+
+    case "reset":
+      pauseBtn.style.display = "none";
+      startBtn.style.display = "block";
+      startBtn.innerHTML = `Start`;
+      timerCountdownVal.classList.remove("blink-digital");
+      if (widgetPromptTag) {
+        widgetPromptTag.textContent = " Focus Mode";
+      }
+      break;
+  }
+}
+
+// Initial setup
+upDateTime();
+setTimerUIState("reset");
+
+// Start / Resume button
+startBtn.addEventListener("click", () => {
+  // 1. Instantly update UI on click (zero lag)
+  setTimerUIState("running");
+
+  // Prevent multiple intervals running together
+  if (activeInterval) {
+    clearInterval(activeInterval);
+  }
+
+  // 2. Start countdown interval
+  activeInterval = setInterval(() => {
+    if (isFocusMode) {
       focusSecond--;
+      upDateTime();
+
       if (focusSecond < 0) {
         clearInterval(activeInterval);
+        activeInterval = null;
         console.log(" Timer Completed");
         isFocusMode = false;
         breakSecond =
           Number(
-            document.querySelector(".timing-pills-break-row .active").dataset
-              .time,
+            document.querySelector(".timing-pills-break-row .active")?.dataset
+              .time || 5,
           ) * 60;
         upDateTime();
-        timerCountdownVal.classList.add("blink-digital");
-        pauseBtn.style.display = "none";
-        startBtn.style.display = "block";
-        startBtn.innerHTML = `Now go to brack Time`;
+        setTimerUIState("break-ready");
       }
-    } else if (!isFocusMode) {
+    } else {
       breakSecond--;
+      upDateTime();
+
       if (breakSecond < 0) {
         clearInterval(activeInterval);
+        activeInterval = null;
         console.log(" Break complete ");
         isFocusMode = true;
         focusSecond =
           Number(
-            document.querySelector(".timing-pills-focus-row .active").dataset
-              .time,
+            document.querySelector(".timing-pills-focus-row .active")?.dataset
+              .time || 25,
           ) * 60;
         cycleCount++;
         upDateTime();
-        startBtn.style.display = "block";
-        startBtn.innerHTML = `Start`;
+        setTimerUIState("focus-ready");
       }
     }
-  }, 10);
+  }, 1000);
 });
 
-// pause button
+// Pause button
 pauseBtn.addEventListener("click", () => {
   clearInterval(activeInterval);
-  timerCountdownVal.classList.add("blink-digital");
-  pauseBtn.style.display = "none";
-  startBtn.style.display = "block";
-  startBtn.innerHTML = `Resume`;
+  activeInterval = null;
+  setTimerUIState("paused");
 });
 
-// reset button
+// Reset button
 resetBtn.addEventListener("click", () => {
   clearInterval(activeInterval);
-  pauseBtn.style.display = "none";
-  startBtn.style.display = "block";
-  startBtn.innerHTML = `Start`;
+  activeInterval = null;
   isFocusMode = true;
   focusSecond =
     Number(
-      document.querySelector(".timing-pills-focus-row .active").dataset.time,
+      document.querySelector(".timing-pills-focus-row .active")?.dataset.time || 25,
     ) * 60;
   breakSecond =
     Number(
-      document.querySelector(".timing-pills-break-row .active").dataset.time,
+      document.querySelector(".timing-pills-break-row .active")?.dataset.time || 5,
     ) * 60;
   upDateTime();
+  setTimerUIState("reset");
 });
 
 // timing pills feature

@@ -57,26 +57,34 @@
             <span class="tech-label">02 // TIMER</span>
             <span class="action-tag-pill">ACTIVE</span>
           </div>
-          <div class="timer-preview-layout">
-            <div class="timer-dial-mini">
-              <span
-                class="ndot-number hero-timer-digits"
-                id="widget-timer-digits"
-                >25:00</span
-              >
+
+          <!-- MINIMALIST TIMER TILES (CLEAN BOX - NOTHING OS DESIGN) -->
+          <div class="timer-flip-display" id="widget-flip-clock">
+            <!-- MINUTES TILE (JUST A BOX) -->
+            <div class="flip-tile" id="flip-tile-min">
+              <span class="flip-tile-num ndot-number" id="widget-flip-min">25</span>
+              <span class="flip-tile-badge">MIN</span>
             </div>
-            <div class="timer-info">
-              <span class="prompt-badge" id="widget-prompt-tag"
-                >"DEEP WORK"</span
-              >
-              <button
-                class="white-pill-btn"
-                id="widget-timer-start"
-                title="Start/Pause Timer"
-              >
-                ▶ PLAY
-              </button>
+
+            <!-- SECONDS TILE (JUST A BOX) -->
+            <div class="flip-tile" id="flip-tile-sec">
+              <span class="flip-tile-num ndot-number" id="widget-flip-sec">00</span>
+              <span class="flip-tile-badge">SEC</span>
             </div>
+          </div>
+
+          <!-- PRESERVED ID SPAN FOR COMPATIBILITY -->
+          <span
+            class="ndot-number hero-timer-digits"
+            id="widget-timer-digits"
+            style="display: none;"
+            >25:00</span
+          >
+
+          <div class="timer-widget-footer">
+            <span class="prompt-badge timer-session-badge" id="widget-prompt-tag"
+              >FOCUS // DEEP WORK</span
+            >
           </div>
         </section>
 
@@ -317,7 +325,7 @@
                   START
                 </button>
                 <button class="timer-box-start-btn" id="pomodoro-pause-btn" type="button">
-                  Puse
+                  PAUSE
                 </button>
               </div>
 
