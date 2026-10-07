@@ -427,11 +427,22 @@ function FeaturesMotivationalQuotes() {
 
 // FeaturesMotivationalQuotes();
 
-let focusSecond = 25 * 60;
-let breakSecond = 5 * 60;
+let focusSecond =
+  Number(
+    document.querySelector(".timing-pills-focus-row .active").dataset.time,
+  ) * 60;
+let breakSecond =
+  Number(
+    document.querySelector(".timing-pills-break-row .active").dataset.time,
+  ) * 60;
 let isFocusMode = true;
 
-let startBtn = document.querySelector(".timer-box-start-btn");
+let cycleCount = 0;
+
+let timerCycle = document.querySelector("#timer-cycle");
+
+let startBtn = document.querySelector("#pomodoro-start-btn");
+let pauseBtn = document.querySelector("#pomodoro-pause-btn");
 let resetBtn = document.querySelector(".btn-reset");
 let timerCountdownVal = document.querySelector(".timer-countdown-val");
 
@@ -441,18 +452,21 @@ function upDateTime() {
 
   // Format with leading zeros (e.g., 25:00)
   timerCountdownVal.innerHTML = `${String(minutes).padStart(2, "0")} : ${String(seconds).padStart(2, "0")}`;
+  timerCycle.innerHTML = `CYCLE // ${String(cycleCount).padStart(2, "0")} OF 04 ${cycleCount > 3 ? "   >>> Time completed" : ""}`;
 }
-
+let activeInterval = null;
 upDateTime();
+pauseBtn.style.display = "none";
 
+// start button
 startBtn.addEventListener("click", () => {
-  let activeInterval = setInterval(() => {
+  timerCountdownVal.classList.remove("blink-digital");
+  activeInterval = setInterval(() => {
     upDateTime();
     if (isFocusMode) {
+      startBtn.style.display = "none";
+      pauseBtn.style.display = "block";
       focusSecond--;
-      if (focusSecond > 0) {
-        startBtn.innerHTML = `PUSE`;
-      }
       if (focusSecond < 0) {
         clearInterval(activeInterval);
         console.log(" Timer Completed");
@@ -463,6 +477,9 @@ startBtn.addEventListener("click", () => {
               .time,
           ) * 60;
         upDateTime();
+        timerCountdownVal.classList.add("blink-digital");
+        pauseBtn.style.display = "none";
+        startBtn.style.display = "block";
         startBtn.innerHTML = `Now go to brack Time`;
       }
     } else if (!isFocusMode) {
@@ -476,13 +493,43 @@ startBtn.addEventListener("click", () => {
             document.querySelector(".timing-pills-focus-row .active").dataset
               .time,
           ) * 60;
+        cycleCount++;
         upDateTime();
+        startBtn.style.display = "block";
         startBtn.innerHTML = `Start`;
       }
     }
   }, 10);
 });
 
+// pause button
+pauseBtn.addEventListener("click", () => {
+  clearInterval(activeInterval);
+  timerCountdownVal.classList.add("blink-digital");
+  pauseBtn.style.display = "none";
+  startBtn.style.display = "block";
+  startBtn.innerHTML = `Resume`;
+});
+
+// reset button
+resetBtn.addEventListener("click", () => {
+  clearInterval(activeInterval);
+  pauseBtn.style.display = "none";
+  startBtn.style.display = "block";
+  startBtn.innerHTML = `Start`;
+  isFocusMode = true;
+  focusSecond =
+    Number(
+      document.querySelector(".timing-pills-focus-row .active").dataset.time,
+    ) * 60;
+  breakSecond =
+    Number(
+      document.querySelector(".timing-pills-break-row .active").dataset.time,
+    ) * 60;
+  upDateTime();
+});
+
+// timing pills feature
 function timingPillsFeature() {
   let focusTime = document.querySelectorAll(
     ".timing-pills-focus-row .cat-pill",

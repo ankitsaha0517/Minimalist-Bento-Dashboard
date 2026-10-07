@@ -1386,6 +1386,41 @@ h1 {
   transform: scale(1.02);
 }
 
+/* ==========================================================================
+   TIMER COUNTDOWN BLINK ANIMATION
+   ========================================================================== */
+.timer-blink,
+.blink {
+  animation: timerCountdownBlink 1s ease-in-out infinite;
+}
+
+@keyframes timerCountdownBlink {
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 25px rgba(255, 255, 255, 0.18);
+  }
+  50% {
+    opacity: 0.2;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.02);
+  }
+}
+
+/* Digital hard-blink alternative */
+.blink-digital {
+  animation: timerDigitalBlink 1s steps(2, start) infinite;
+}
+
+@keyframes timerDigitalBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 /* METADATA SUBTITLE */
 .timer-meta-wrapper {
   display: flex;

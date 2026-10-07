@@ -302,7 +302,7 @@
           <div class="timer-blueprint-canvas">
             <!-- BIG DIGITAL TIME DISPLAY (NOTHING OS DOT MATRIX NUMBERING) -->
             <div class="timer-digits-wrapper">
-              <span class="timer-countdown-val ndot-number" id="pomodoro-timer-digits"> </span>
+              <span class="timer-countdown-val ndot-number" id="pomodoro-timer-digits"></span>
             </div>
 
             <!-- ESTIMATED COMPLETION METRIC -->
@@ -315,6 +315,9 @@
               <div class="timer-primary-action-wrap">
                 <button class="timer-box-start-btn" id="pomodoro-start-btn" type="button">
                   START
+                </button>
+                <button class="timer-box-start-btn" id="pomodoro-pause-btn" type="button">
+                  Puse
                 </button>
               </div>
 
@@ -334,7 +337,7 @@
           <div class="timer-card-footer">
             <div class="timer-session-info">
               <span class="dot-red-small"></span>
-              <span class="ndot-number">CYCLE // 01 OF 04</span>
+              <span class="ndot-number" id="timer-cycle">CYCLE // 01 OF 04</span>
             </div>
             <div class="timer-stats-info">
               <span class="action-tag-pill">AUTO-TRANSITION</span>
